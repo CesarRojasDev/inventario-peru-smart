@@ -1,0 +1,222 @@
+<div class="inventario-container">
+  <main class="contenido">
+    <div class="busqueda-card">
+      <!-- Header con título y botones de exportar -->
+      <div class="header-section">
+        <h2 class="titulo">Inventario de Productos</h2>
+        <div class="botones-exportar">
+          <button
+            nz-button
+            nzType="primary"
+            (click)="exportarExcel()"
+            class="btn-exportar"
+          >
+            <span nz-icon nzType="file-excel" nzTheme="outline"></span>
+            Exportar Todos
+          </button>
+          <button
+            nz-button
+            nzType="default"
+            (click)="exportarPaginaActual()"
+            class="btn-exportar-visibles"
+          >
+            <span nz-icon nzType="file-text" nzTheme="outline"></span>
+            Exportar Página
+          </button>
+        </div>
+      </div>
+
+      <!-- Formulario de filtros -->
+      <form nz-form class="formulario-filtros">
+        <div class="filtros-grid">
+          <div class="campo">
+            <nz-form-item>
+              <nz-form-label>Nombre del Producto</nz-form-label>
+              <nz-form-control>
+                <input
+                  nz-input
+                  [(ngModel)]="filtroNombre"
+                  name="filtroNombre"
+                  placeholder="Buscar por nombre..."
+                  (input)="filtrar()"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div class="campo">
+            <nz-form-item>
+              <nz-form-label>SKU</nz-form-label>
+              <nz-form-control>
+                <input
+                  nz-input
+                  [(ngModel)]="filtroSKU"
+                  name="filtroSku"
+                  placeholder="Buscar por SKU..."
+                  (input)="filtrar()"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div class="campo">
+            <nz-form-item>
+              <nz-form-label>Precio (S/)</nz-form-label>
+              <nz-form-control>
+                <input
+                  nz-input
+                  type="number"
+                  [(ngModel)]="filtroPrecio"
+                  name="filtroPrecio"
+                  placeholder="Buscar por precio..."
+                  (input)="filtrar()"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div class="campo">
+            <nz-form-item>
+              <nz-form-label>Stock</nz-form-label>
+              <nz-form-control>
+                <input
+                  nz-input
+                  type="number"
+                  [(ngModel)]="filtroStock"
+                  name="filtroStock"
+                  placeholder="Buscar por stock..."
+                  (input)="filtrar()"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="botones-accion">
+          <!-- Total de productos a la izquierda -->
+          <div class="info-resultados">
+            <span class="badge-resultados">
+              {{ productosFiltrados.length }} productos encontrados
+            </span>
+          </div>
+
+          <!-- Botones agrupados a la derecha -->
+          <div class="grupo-botones">
+            <button
+              nz-button
+              nzType="default"
+              nzShape="round"
+              (click)="resetear()"
+              class="btn-limpiar"
+            >
+              <span nz-icon nzType="clear" nzTheme="outline"></span>
+              Limpiar Filtros
+            </button>
+
+            <button
+              nz-button
+              nzType="primary"
+              nzShape="round"
+              (click)="buscarProducto()"
+              class="btn-buscar"
+            >
+              <span nz-icon nzType="search" nzTheme="outline"></span>
+              Buscar
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Tabla de productos -->
+      <nz-table
+        #tabla
+        [nzData]="productosFiltrados"
+        [nzBordered]="true"
+        [nzSize]="'middle'"
+        [nzFrontPagination]="true"
+        [nzPageSize]="pageSize"
+        [nzPageIndex]="pageIndex"
+        (nzPageIndexChange)="onPageChange($event)"
+        (nzPageSizeChange)="onPageSizeChange($event)"
+        [nzShowPagination]="true"
+        [nzPageSizeOptions]="[5, 10, 20, 50]"
+        class="tabla-productos"
+      >
+        <thead>
+          <tr>
+            <th>Nombre del Producto</th>
+            <th>SKU</th>
+            <th>SKU CALIDDA</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th class="th-center">Imágenes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of productosPaginados">
+            <td>{{ p.producto }}</td>
+            <td>{{ p.sku }}</td>
+            <td>{{ p.skuCalidda }}</td>
+            <td class="td-precio">S/ {{ p.precio | number : "1.2-2" }}</td>
+            <td class="td-stock">
+              <span
+                [class.sin-stock]="p.stock === 0"
+                [class.stock-bajo]="p.stock > 0 && p.stock < 6"
+                [class.stock-alto]="p.stock >= 6"
+              >
+                {{ p.stock }}
+              </span>
+            </td>
+            <td class="td-center">
+              <button
+                nz-button
+                nzType="text"
+                (click)="showModal(p)"
+                nz-tooltip="Ver Imágenes"
+                class="icon-btn"
+              >
+                <span nz-icon nzType="eye" nzTheme="outline"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </main>
+</div>
+
+<!-- Modal de imágenes -->
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Imágenes del Producto"
+  (nzOnCancel)="handleCancel()"
+  [nzFooter]="null"
+  nzWidth="700px"
+  nzCentered
+>
+  <div *nzModalContent class="modal-imagenes">
+    <ng-container *ngIf="imagenes?.length; else sinImagenes">
+      <div class="grid-imagenes">
+        <img
+          *ngFor="let img of imagenes"
+          [src]="img"
+          alt="Imagen del producto"
+          class="imagen-producto"
+        />
+      </div>
+    </ng-container>
+
+    <ng-template #sinImagenes>
+      <div class="sin-imagenes">
+        <span
+          nz-icon
+          nzType="picture"
+          nzTheme="outline"
+          class="icon-vacio"
+        ></span>
+        <p>No hay imágenes disponibles para este producto</p>
+      </div>
+    </ng-template>
+  </div>
+</nz-modal>

@@ -1,0 +1,281 @@
+/* === Contenedor Principal === */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0065f9;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de fondo animado */
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 50px 50px;
+  animation: moveBackground 20s linear infinite;
+}
+
+@keyframes moveBackground {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* === Contenido === */
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 440px;
+  animation: fadeInUp 0.6s ease;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-container {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.titulo-principal {
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  margin: 0 0 8px 0;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.subtitulo {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-weight: 400;
+}
+
+/* === Card de Login === */
+.login-card {
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 40px 32px 32px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+}
+
+.titulo-login {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 28px 0;
+  text-align: center;
+}
+
+/* === Formulario === */
+.login-form {
+  width: 100%;
+}
+
+.login-form nz-form-item {
+  margin-bottom: 20px;
+}
+
+.input-login {
+  height: 48px;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  padding: 12px 16px 12px 42px;
+}
+
+.input-login:hover {
+  border-color: #1a9eff;
+}
+
+.input-login:focus {
+  border-color: #1a9eff;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.input-icon {
+  font-size: 18px;
+  color: #9ca3af;
+}
+
+/* === Botón de Login === */
+.form-item-button {
+  margin-top: 28px;
+  margin-bottom: 0;
+}
+
+.btn-login {
+  height: 48px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #0451c9;
+  border: none;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-login:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
+  background: #0b489d;
+}
+
+.btn-login:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-login:disabled {
+  background: #e5e7eb;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* === Footer del Card === */
+.login-footer {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.texto-ayuda {
+  font-size: 13px;
+  color: #6b7280;
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.texto-ayuda span[nz-icon] {
+  font-size: 14px;
+  color: #667eea;
+}
+
+/* === Copyright Footer === */
+.footer-copyright {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.footer-copyright p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+/* === Responsividad === */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 16px;
+  }
+
+  .login-card {
+    padding: 32px 24px 24px;
+  }
+
+  .titulo-principal {
+    font-size: 28px;
+  }
+
+  .subtitulo {
+    font-size: 14px;
+  }
+
+  .titulo-login {
+    font-size: 22px;
+  }
+
+  .input-login,
+  .btn-login {
+    height: 44px;
+  }
+
+  .logo-container {
+    width: 70px;
+    height: 70px;
+  }
+
+  .logo {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* === Ajustes de ng-zorro === */
+::ng-deep .login-card .ant-card-body {
+  padding: 0 !important;
+}

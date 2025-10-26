@@ -1,0 +1,25 @@
+<header class="user-header">
+  <div class="logo">
+    <img src="../../../assets/logo.png" alt="Peru Smart Logo" />
+    <h2>PERU SMART</h2>
+  </div>
+  
+  <div class="user-menu" (click)="toggleDropdown()">
+    <div class="user-info">
+      <div class="user-avatar">
+        {{ username?.charAt(0)?.toUpperCase() }}
+      </div>
+      <span class="username">{{ username }}</span>
+    </div>
+    <span nz-icon nzType="down" nzTheme="outline" class="dropdown-icon" [class.rotate]="dropdownOpen"></span>
+    
+    <div class="dropdown" [class.show]="dropdownOpen">
+      <ul>
+        <li (click)="logout()">
+          <span nz-icon nzType="logout" nzTheme="outline"></span>
+          <span>Cerrar sesión</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

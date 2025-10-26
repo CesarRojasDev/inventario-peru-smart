@@ -1,0 +1,80 @@
+<div class="login-container">
+  <div class="login-content">
+
+    <!-- Card de Login -->
+    <nz-card class="login-card" [nzBordered]="false">
+      <h2 class="titulo-login">Iniciar Sesión</h2>
+      <form nz-form (ngSubmit)="login()" class="login-form">
+        <!-- Usuario -->
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Por favor ingrese su usuario">
+            <nz-input-group [nzPrefix]="prefixUser">
+              <input
+                nz-input
+                placeholder="Usuario"
+                [(ngModel)]="username"
+                name="username"
+                required
+                class="input-login"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <ng-template #prefixUser>
+          <span nz-icon nzType="user" nzTheme="outline" class="input-icon"></span>
+        </ng-template>
+
+        <!-- Contraseña -->
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Por favor ingrese su contraseña">
+            <nz-input-group [nzPrefix]="prefixPassword">
+              <input
+                nz-input
+                type="password"
+                placeholder="Contraseña"
+                [(ngModel)]="password"
+                name="password"
+                required
+                class="input-login"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <ng-template #prefixPassword>
+          <span nz-icon nzType="lock" nzTheme="outline" class="input-icon"></span>
+        </ng-template>
+
+        <!-- Botón de Login -->
+        <nz-form-item class="form-item-button">
+          <nz-form-control>
+            <button
+              nz-button
+              nzType="primary"
+              nzBlock
+              [disabled]="!username || !password"
+              class="btn-login"
+            >
+              <span nz-icon nzType="login" nzTheme="outline"></span>
+              Iniciar Sesión
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+
+      <!-- Footer del card -->
+      <div class="login-footer">
+        <p class="texto-ayuda">
+          <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+          ¿Problemas para acceder? Contacta al administrador
+        </p>
+      </div>
+    </nz-card>
+
+    <!-- Footer -->
+    <div class="footer-copyright">
+      <p>&copy; 2025 Peru Smart. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</div>
