@@ -1,9 +1,9 @@
 <div class="login-container">
   <div class="login-content">
-
     <!-- Card de Login -->
     <nz-card class="login-card" [nzBordered]="false">
       <h2 class="titulo-login">Iniciar Sesión</h2>
+
       <form nz-form (ngSubmit)="login()" class="login-form">
         <!-- Usuario -->
         <nz-form-item>
@@ -22,7 +22,12 @@
         </nz-form-item>
 
         <ng-template #prefixUser>
-          <span nz-icon nzType="user" nzTheme="outline" class="input-icon"></span>
+          <span
+            nz-icon
+            nzType="user"
+            nzTheme="outline"
+            class="input-icon"
+          ></span>
         </ng-template>
 
         <!-- Contraseña -->
@@ -43,7 +48,12 @@
         </nz-form-item>
 
         <ng-template #prefixPassword>
-          <span nz-icon nzType="lock" nzTheme="outline" class="input-icon"></span>
+          <span
+            nz-icon
+            nzType="lock"
+            nzTheme="outline"
+            class="input-icon"
+          ></span>
         </ng-template>
 
         <!-- Botón de Login -->
