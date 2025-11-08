@@ -3,7 +3,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { importProvidersFrom } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
@@ -14,6 +14,6 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(NzIconModule),
     provideHttpClient(),
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
   ],
 });
